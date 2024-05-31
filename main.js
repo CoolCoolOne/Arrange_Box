@@ -15,13 +15,10 @@
             // const found = selected.find((item) => {Number(item.dataset.id) === Number(event.target.dataset.id)});
             const found = selected.find(isAlreadyActive);
             if (found) {
-                console.log ('click1');
-                // let remo = selected.splice(Number(event.target.dataset.id),1);
-                // console.log (remo);
+                // let remo = selected.splice(Number(event.target.dataset.id),1); // console.log (remo);
                 // пересоздать массив добавив все элем кроме тыкнутого
                 selected = selected.filter(delAlreadyActive);
             } else {
-                console.log ('click2');
                 selected.push(event.target);
             }            
 
@@ -51,31 +48,52 @@
                 if (item.parentElement === container1) {
                 container2.appendChild(container1.removeChild(item));
                 // item.classList.remove("active");
+                // selected = [];
+                // selected = selected.filter(delAlreadyActive);
                 }
             });
             // selected = [];
             
-        } else if (target.classList.contains("js-left-all")) {
-            Array.from(container2.querySelectorAll(".js-item")).forEach((item) => {
-                container1.appendChild(container2.removeChild(item));
-                // item.classList.remove("active");
-            });
-            // selected = [];
-        } else if (target.classList.contains("js-right-all")) {
-            Array.from(container1.querySelectorAll(".js-item")).forEach((item) => {
-                container2.appendChild(container1.removeChild(item));
-                // item.classList.remove("active");
-            });
-            // selected = [];
         } else if (target.classList.contains("js-left")) {
             selected.forEach((item) => {
                 if (item.parentElement === container2) {
                     container1.appendChild(container2.removeChild(item));
                     // item.classList.remove("active");
+                    // selected = selected.filter(delAlreadyActive);
                 }                
             });
             // selected = [];
+
+
+        } else if (target.classList.contains("js-left-all")) {
+            Array.from(container2.querySelectorAll(".js-item")).forEach((item) => {
+                container1.appendChild(container2.removeChild(item));
+                item.classList.remove("active");
+            });
+            Array.from(container1.querySelectorAll(".js-item")).forEach((item) => {
+                item.classList.remove("active"); // del active in all arrange box
+            });
+            selected = [];
+
+        } else if (target.classList.contains("js-right-all")) {
+            Array.from(container1.querySelectorAll(".js-item")).forEach((item) => {
+                container2.appendChild(container1.removeChild(item));
+                item.classList.remove("active");
+            });
+            Array.from(container2.querySelectorAll(".js-item")).forEach((item) => {
+                item.classList.remove("active"); // del active in all arrange box
+            });
+            selected = [];
+
+        } 
+
+        function delAlreadyActive (item) {
+            let res = Number(item.dataset.id) !== Number(event.target.dataset.id);
+            return res;
         }
+
+        // console.log(selected);
+
     }
     
     left.addEventListener("click", handleMove);
