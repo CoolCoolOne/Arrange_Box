@@ -29,7 +29,8 @@
             function delAlreadyActive (item) {
                 let res = Number(item.dataset.id) !== Number(event.target.dataset.id);
                 return res;
-            }
+            };
+            console.log(selected);
         }
     }
 
@@ -47,9 +48,9 @@
             selected.forEach((item) => {
                 if (item.parentElement === container1) {
                 container2.appendChild(container1.removeChild(item));
-                // item.classList.remove("active");
+                item.classList.remove("active");
                 // selected = [];
-                // selected = selected.filter(delAlreadyActive);
+                selected = selected.filter(delAlreadyActive);
                 }
             });
             // selected = [];
@@ -58,8 +59,8 @@
             selected.forEach((item) => {
                 if (item.parentElement === container2) {
                     container1.appendChild(container2.removeChild(item));
-                    // item.classList.remove("active");
-                    // selected = selected.filter(delAlreadyActive);
+                    item.classList.remove("active");
+                    selected = selected.filter(delAlreadyActive);
                 }                
             });
             // selected = [];
@@ -88,11 +89,13 @@
         } 
 
         function delAlreadyActive (item) {
-            let res = Number(item.dataset.id) !== Number(event.target.dataset.id);
+            let res = Number(item.dataset.id) === Number(target.dataset.id);
+            console.log(res);
+
             return res;
         }
 
-        // console.log(selected);
+        console.log(selected);
 
     }
     
